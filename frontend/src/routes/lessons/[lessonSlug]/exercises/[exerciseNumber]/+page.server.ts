@@ -11,17 +11,21 @@ export const load = (async ({ params }) => {
         throw error(404, 'Lesson not found');
     }
 
-    // Find the exercise
-    const exerciseIndex = parseInt(params.exerciseNumber) - 1;
-    const exercise = lesson.exercises[exerciseIndex];
+    // Find the exercise by sequenceKey
+    const sequenceKey = parseFloat(params.exerciseNumber);
+    const exercise = lesson.exercises.find(e => e.sequenceKey === sequenceKey);
     if (!exercise) {
         throw error(404, 'Exercise not found');
     }
+
+    // Calculate exercise number based on sorted sequence keys
+    const sortedExercises = [...lesson.exercises].sort((a, b) => a.sequenceKey - b.sequenceKey);
+    const exerciseNumber = sortedExercises.findIndex(e => e.sequenceKey === sequenceKey) + 1;
 
     return {
         lesson,
         exercise,
         totalExercises: lesson.exercises.length,
-        exerciseNumber: exerciseIndex + 1
+        exerciseNumber
     };
 }) satisfies PageServerLoad;

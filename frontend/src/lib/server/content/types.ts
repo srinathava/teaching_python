@@ -21,6 +21,7 @@ export interface Lesson {
     title: string;
     description: string;
     order: number;
+    icon?: string;
     exercises: Exercise[];
 }
 

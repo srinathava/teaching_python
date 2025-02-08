@@ -11,7 +11,6 @@
   const exerciseModules = import.meta.glob('$lib/content/**/content.svelte');
 
   export let exercise: Exercise;
-  export let lessonPath: string;
   export let exerciseNumber: number;
   export let totalExercises: number;
   
@@ -40,7 +39,7 @@
   }
   
   function goBack() {
-    goto(lessonPath);
+    goto('/');
   }
 
   function handleCodeChange(event: CustomEvent<string>) {
@@ -56,7 +55,7 @@
       on:click={goBack}
     >
       <span class="mr-2">←</span>
-      Back to Lesson
+      Back to Lessons
     </button>
     <span class="text-sm font-medium text-gray-500">Exercise {exerciseNumber} of {totalExercises}</span>
   </div>

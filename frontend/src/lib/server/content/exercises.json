@@ -2,9 +2,10 @@
   "lessons": [
     {
       "slug": "variables",
-      "title": "Introduction to Variables",
+      "title": "The Super Magic Label Maker",
       "description": "Learn how to store and use data with variables in Python",
       "order": 1,
+      "icon": "🏷️",
       "exercises": [
         {
           "slug": "variables-1",
@@ -15,7 +16,7 @@
           "initialCode": "# Create variables for toy counts\n# Example: blocks = 12",
           "solution": "blocks = 12\ndolls = 5\ncars = 8",
           "hintText": "Remember to use = to assign values to variables!",
-          "contentPath": "content/variables/exercises/1/content.svelte",
+          "contentPath": "variables/exercises/1/content.svelte",
           "validationParams": {
             "concept": "variables",
             "expectedOutcome": "blocks = 12\ndolls = 5\ncars = 8"
@@ -24,25 +25,26 @@
         {
           "slug": "variables-2",
           "sequenceKey": 2.0,
-          "title": "Numbers in Variables",
-          "description": "Store and use numbers in variables",
-          "taskDescription": "Create a variable named 'age' with a number",
-          "initialCode": "# Create a variable named \"age\" with a number\n\n",
-          "solution": "age = 10",
-          "hintText": "Remember to use = to assign values to variables!",
+          "title": "The Great Fruit Swap",
+          "description": "Help two friends swap their fruits using variables!",
+          "taskDescription": "Oh no! Alex has a banana but wants an apple, while Sam has an apple but wants a banana. Help them swap their fruits by using a temporary variable called 'temp'!",
+          "initialCode": "# Alex and Sam need to swap their fruits!\nalex_fruit = \"banana\"\nsam_fruit = \"apple\"\n\n# Use temp to help swap the fruits\n",
+          "solution": "alex_fruit = \"banana\"\nsam_fruit = \"apple\"\ntemp = alex_fruit\nalex_fruit = sam_fruit\nsam_fruit = temp",
+          "hintText": "Think about how you can temporarily store one fruit while you make the swap!",
           "contentPath": "variables/exercises/2/content.svelte",
           "validationParams": {
             "concept": "variables",
-            "expectedOutcome": "age = 10"
+            "expectedOutcome": "alex_fruit = \"banana\"\nsam_fruit = \"apple\"\ntemp = alex_fruit\nalex_fruit = sam_fruit\nsam_fruit = temp"
           }
         }
       ]
     },
     {
       "slug": "operations",
-      "title": "Basic Operations",
+      "title": "The Amazing Number Circus",
       "description": "Learn how to perform calculations and work with different types of data",
       "order": 2,
+      "icon": "🎡",
       "exercises": [
         {
           "slug": "operations-1",
