@@ -51,10 +51,9 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					exerciseId: parseInt(exerciseId),
+					exercise_slug: exerciseId,
 					code,
-					isCorrect: result.success,
-					feedback: result.message
+					is_correct: result.success
 				})
 			});
 

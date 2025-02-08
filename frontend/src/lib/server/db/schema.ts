@@ -10,20 +10,11 @@ export const progress = sqliteTable('progress', {
 	exerciseSlug: text('exercise_slug').notNull(),
 	completed: integer('completed', { mode: 'boolean' }).notNull().default(false),
 	completedAt: integer('completed_at'),
-	attempts: integer('attempts').notNull().default(0)
+	attempts: integer('attempts').notNull().default(0),
+	lastAttemptedCode: text('last_attempted_code')
 }, (table) => ({
 	pk: primaryKey({ columns: [table.userId, table.exerciseSlug] })
 }));
-
-export const submission = sqliteTable('submission', {
-	id: integer('id').primaryKey(),
-	userId: integer('user_id').references(() => user.id).notNull(),
-	exerciseSlug: text('exercise_slug').notNull(),
-	code: text('code').notNull(),
-	isCorrect: integer('is_correct', { mode: 'boolean' }).notNull(),
-	feedback: text('feedback'),
-	createdAt: integer('created_at').notNull()
-});
 
 export const achievement = sqliteTable('achievement', {
 	id: integer('id').primaryKey(),

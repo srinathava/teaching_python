@@ -1,7 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, Dict
+from datetime import datetime
 import json
 import os
 from dotenv import load_dotenv
@@ -13,6 +14,10 @@ from ..validator.ast_validator import ASTValidator, ValidationResult
 from ..validator.security import SecurityChecker, SecurityViolation
 from ..validator.limits import ResourceLimiter, ResourceError
 from ..validator.llm import LLMTranslator
+from ..database import get_db
+from ..models import Progress, User
+from sqlalchemy.orm import Session
+from sqlalchemy import select
 
 app = FastAPI(title="Code Validator API")
 
@@ -53,16 +58,34 @@ class ValidationResponse(BaseModel):
     error_line: Optional[int] = None
     error_column: Optional[int] = None
 
+class ProgressRequest(BaseModel):
+    """Request model for updating progress."""
+    exercise_slug: str
+    code: str
+    is_correct: bool
+    user_id: int = 1  # Temporary until auth is implemented
+
+class ProgressResponse(BaseModel):
+    """Response model for progress updates."""
+    success: bool
+    message: Optional[str] = None
+
+class ProgressRecord(BaseModel):
+    """Model for progress record in responses."""
+    exercise_slug: str
+    completed: bool
+    completed_at: Optional[datetime]
+    attempts: int
+    last_attempted_code: Optional[str]
+
+class UserProgressResponse(BaseModel):
+    """Response model for user progress fetch."""
+    progress: List[ProgressRecord]
+
 @app.post("/api/validate", response_model=ValidationResponse)
 async def validate_code(request: CodeValidationRequest) -> ValidationResponse:
     """
     Validate Python code for syntax, security, and resource usage.
-    
-    Args:
-        request: CodeValidationRequest containing the code to validate
-        
-    Returns:
-        ValidationResponse with validation results and any error details
     """
     try:
         # Check for security violations
@@ -105,7 +128,6 @@ async def validate_code(request: CodeValidationRequest) -> ValidationResponse:
                     error_column=syntax_result.error_column
                 )
 
-
         # If exercise details are provided, use LLM for semantic validation
         if request.exercise_description and request.expected_outcome and llm_translator:
             llm_result = llm_translator.validate_code(
@@ -136,11 +158,98 @@ async def validate_code(request: CodeValidationRequest) -> ValidationResponse:
         )
     
     except Exception as e:
-        # Log the error for debugging (implement proper logging later)
         print(f"Unexpected error in code validation: {str(e)}")
         raise HTTPException(
             status_code=500,
             detail="Something went wrong while checking your code. Please try again!"
+        )
+
+@app.post("/api/progress", response_model=ProgressResponse)
+async def update_progress(request: ProgressRequest, db: Session = Depends(get_db)) -> ProgressResponse:
+    """
+    Update user progress for an exercise.
+    """
+    try:
+        # Get or create user (temporary until auth is implemented)
+        user = db.query(User).filter(User.id == request.user_id).first()
+        if not user:
+            user = User(id=request.user_id)
+            db.add(user)
+            db.flush()
+
+        # Get existing progress or create new
+        progress = db.query(Progress).filter(
+            Progress.user_id == request.user_id,
+            Progress.exercise_slug == request.exercise_slug
+        ).first()
+
+        if progress:
+            # Update existing progress
+            progress.attempts += 1
+            progress.last_attempted_code = request.code
+            if request.is_correct and not progress.completed:
+                progress.completed = True
+                progress.completed_at = datetime.utcnow()
+        else:
+            # Create new progress
+            progress = Progress(
+                user_id=request.user_id,
+                exercise_slug=request.exercise_slug,
+                completed=request.is_correct,
+                completed_at=datetime.utcnow() if request.is_correct else None,
+                attempts=1,
+                last_attempted_code=request.code
+            )
+            db.add(progress)
+
+        db.commit()
+        return ProgressResponse(
+            success=True,
+            message="Progress updated successfully"
+        )
+
+    except Exception as e:
+        print(f"Error updating progress: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to update progress"
+        )
+
+@app.get("/api/progress/{user_id}", response_model=UserProgressResponse)
+async def get_user_progress(user_id: int, db: Session = Depends(get_db)) -> UserProgressResponse:
+    """
+    Get all progress records for a user.
+    """
+    try:
+        # Get or create user (temporary until auth is implemented)
+        user = db.query(User).filter(User.id == user_id).first()
+        if not user:
+            user = User(id=user_id)
+            db.add(user)
+            db.commit()
+
+        # Get progress records
+        progress_records = db.query(Progress).filter(
+            Progress.user_id == user_id
+        ).all()
+
+        return UserProgressResponse(
+            progress=[
+                ProgressRecord(
+                    exercise_slug=p.exercise_slug,
+                    completed=p.completed,
+                    completed_at=p.completed_at,
+                    attempts=p.attempts,
+                    last_attempted_code=p.last_attempted_code
+                ) for p in progress_records
+            ]
+        )
+
+    except Exception as e:
+        print(f"Error fetching progress: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to fetch progress"
         )
 
 if __name__ == "__main__":

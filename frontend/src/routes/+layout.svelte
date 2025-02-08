@@ -32,22 +32,8 @@
       <!-- Navigation Links -->
       <div class="flex space-x-8">
         {#if mounted}
-          <a 
-            href="/lessons" 
-            class="text-gray-700 hover:text-primary-blue px-3 py-2 rounded-md text-lg font-medium transition-colors"
-            in:slideIn={{duration: 400, delay: 200}}
-          >
-            Lessons
-          </a>
-          <a 
-            href="/progress" 
-            class="text-gray-700 hover:text-primary-blue px-3 py-2 rounded-md text-lg font-medium transition-colors"
-            in:slideIn={{duration: 400, delay: 300}}
-          >
-            Progress
-          </a>
-          <a 
-            href="/achievements" 
+          <a
+            href="/achievements"
             class="text-gray-700 hover:text-primary-blue px-3 py-2 rounded-md text-lg font-medium transition-colors"
             in:slideIn={{duration: 400, delay: 400}}
           >

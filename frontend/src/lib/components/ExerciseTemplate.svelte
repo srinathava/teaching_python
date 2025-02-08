@@ -13,15 +13,21 @@
   export let exercise: Exercise;
   export let exerciseNumber: number;
   export let totalExercises: number;
+  export let progress: {
+    completed: boolean;
+    attempts: number;
+    completedAt: number | null;
+    lastAttemptedCode: string | null;
+  };
   
-  let codeInput = exercise.initialCode;
+  let codeInput = progress.lastAttemptedCode || exercise.initialCode;
   let showHint = false;
   let ExerciseContent: any = null;
   
   onMount(async () => {
     try {
       // Get the module loader function for this exercise's content path
-      const moduleLoader = exerciseModules[`/src/lib/${exercise.contentPath}`];
+      const moduleLoader = exerciseModules[`/src/lib/content/${exercise.contentPath}`];
       if (!moduleLoader) {
         throw new Error(`No module found for path: ${exercise.contentPath}`);
       }

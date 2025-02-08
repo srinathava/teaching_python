@@ -41,15 +41,27 @@ async function runMigration() {
 
     console.error('Running migrations...');
     try {
-        // Drop existing tables to ensure clean state
-        await client.execute(`
-            DROP TABLE IF EXISTS user_achievement;
-            DROP TABLE IF EXISTS achievement;
-            DROP TABLE IF EXISTS progress;
-            DROP TABLE IF EXISTS user;
+        // List tables before dropping
+        const beforeTables = await client.execute(`
+            SELECT name FROM sqlite_master WHERE type='table';
         `);
+        console.error('Tables before dropping:', beforeTables.rows);
 
-        // Create tables
+        // Drop existing tables to ensure clean state
+        console.error('Dropping tables...');
+        await client.execute(`DROP TABLE IF EXISTS user_achievement;`);
+        await client.execute(`DROP TABLE IF EXISTS achievement;`);
+        await client.execute(`DROP TABLE IF EXISTS progress;`);
+        await client.execute(`DROP TABLE IF EXISTS user;`);
+
+        // List tables after dropping
+        const afterTables = await client.execute(`
+            SELECT name FROM sqlite_master WHERE type='table';
+        `);
+        console.error('Tables after dropping:', afterTables.rows);
+
+        // Create user table first (no dependencies)
+        console.error('Creating user table...');
         await client.execute(`
             CREATE TABLE user (
                 id INTEGER PRIMARY KEY,
@@ -57,6 +69,8 @@ async function runMigration() {
             );
         `);
 
+        // Create progress table (depends on user)
+        console.error('Creating progress table...');
         await client.execute(`
             CREATE TABLE progress (
                 user_id INTEGER NOT NULL,
@@ -64,11 +78,14 @@ async function runMigration() {
                 completed INTEGER NOT NULL DEFAULT 0,
                 completed_at INTEGER,
                 attempts INTEGER NOT NULL DEFAULT 0,
+                last_attempted_code TEXT,
                 PRIMARY KEY (user_id, exercise_slug),
                 FOREIGN KEY (user_id) REFERENCES user(id)
             );
         `);
 
+        // Create achievement table (no dependencies)
+        console.error('Creating achievement table...');
         await client.execute(`
             CREATE TABLE achievement (
                 id INTEGER PRIMARY KEY,
@@ -79,6 +96,8 @@ async function runMigration() {
             );
         `);
 
+        // Create user_achievement table (depends on both user and achievement)
+        console.error('Creating user_achievement table...');
         await client.execute(`
             CREATE TABLE user_achievement (
                 user_id INTEGER NOT NULL,

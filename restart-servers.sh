@@ -21,9 +21,34 @@ kill_by_pid() {
 kill_by_pid ".pids/frontend.pid"
 kill_by_pid ".pids/backend.pid"
 
-echo "Starting backend server..."
+echo "Setting up backend..."
 cd backend
 source venv/bin/activate
+
+# Install/upgrade dependencies
+echo "Installing/upgrading Python dependencies..."
+pip install -r requirements.txt
+
+# Run database migrations
+echo "Running database migrations..."
+alembic upgrade head
+
+# Create temporary user for development
+echo "Creating temporary user..."
+python -c "
+from src.database import get_db
+from src.models import User
+
+with get_db() as db:
+    if not db.query(User).filter(User.id == 1).first():
+        db.add(User(id=1))
+        db.commit()
+        print('Created temporary user with ID 1')
+    else:
+        print('Temporary user already exists')
+"
+
+echo "Starting backend server..."
 python -m uvicorn src.api.main:app --reload & echo $! > ../.pids/backend.pid
 
 echo "Starting frontend server..."

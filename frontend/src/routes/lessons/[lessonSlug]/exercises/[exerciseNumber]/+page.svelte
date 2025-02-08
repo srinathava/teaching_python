@@ -9,4 +9,5 @@
   exercise={data.exercise}
   exerciseNumber={data.exerciseNumber}
   totalExercises={data.totalExercises}
+  progress={data.progress}
 />
