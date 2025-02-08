@@ -1,5 +1,7 @@
 # Python Teaching Platform
 
+**CAVEAT: This whole thing was just a fun exercise for playing around AI coding tools. It is not meant to be some sort of production ready app. Everything here (the code, the images, even this README.md) was created using AI tools.**
+
 A full-stack application designed to teach Python programming through interactive exercises and lessons.
 
 ## Project Structure
