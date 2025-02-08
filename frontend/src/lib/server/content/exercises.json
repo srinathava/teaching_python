@@ -1,0 +1,80 @@
+{
+  "lessons": [
+    {
+      "slug": "variables",
+      "title": "Introduction to Variables",
+      "description": "Learn how to store and use data with variables in Python",
+      "order": 1,
+      "exercises": [
+        {
+          "slug": "variables-1",
+          "sequenceKey": 1.0,
+          "title": "The Toy Organizer",
+          "description": "Help organize the toy collection by creating variables for different toy counts!",
+          "taskDescription": "Create variables for blocks, dolls, and cars with the counts shown in the boxes.",
+          "initialCode": "# Create variables for toy counts\n# Example: blocks = 12",
+          "solution": "blocks = 12\ndolls = 5\ncars = 8",
+          "hintText": "Remember to use = to assign values to variables!",
+          "contentPath": "content/variables/exercises/1/content.svelte",
+          "validationParams": {
+            "concept": "variables",
+            "expectedOutcome": "blocks = 12\ndolls = 5\ncars = 8"
+          }
+        },
+        {
+          "slug": "variables-2",
+          "sequenceKey": 2.0,
+          "title": "Numbers in Variables",
+          "description": "Store and use numbers in variables",
+          "taskDescription": "Create a variable named 'age' with a number",
+          "initialCode": "# Create a variable named \"age\" with a number\n\n",
+          "solution": "age = 10",
+          "hintText": "Remember to use = to assign values to variables!",
+          "contentPath": "variables/exercises/2/content.svelte",
+          "validationParams": {
+            "concept": "variables",
+            "expectedOutcome": "age = 10"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "operations",
+      "title": "Basic Operations",
+      "description": "Learn how to perform calculations and work with different types of data",
+      "order": 2,
+      "exercises": [
+        {
+          "slug": "operations-1",
+          "sequenceKey": 1.0,
+          "title": "Adding Numbers",
+          "description": "Learn to add numbers together",
+          "taskDescription": "Add two numbers and store the result in 'sum'",
+          "initialCode": "# Add two numbers and store the result in \"sum\"\n\n",
+          "solution": "sum = 5 + 3",
+          "hintText": "Use the + operator to add numbers",
+          "contentPath": "operations/exercises/1/content.svelte",
+          "validationParams": {
+            "concept": "operations",
+            "expectedOutcome": "sum = 5 + 3"
+          }
+        },
+        {
+          "slug": "operations-2",
+          "sequenceKey": 2.0,
+          "title": "String Operations",
+          "description": "Combine text using string operations",
+          "taskDescription": "Combine two strings with a space between them",
+          "initialCode": "# Combine two strings with a space between them\n\n",
+          "solution": "message = \"Hello\" + \" \" + \"World\"",
+          "hintText": "Use the + operator to combine strings",
+          "contentPath": "operations/exercises/2/content.svelte",
+          "validationParams": {
+            "concept": "operations",
+            "expectedOutcome": "message = \"Hello\" + \" \" + \"World\""
+          }
+        }
+      ]
+    }
+  ]
+}

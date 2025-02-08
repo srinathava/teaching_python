@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+:root {
+  --primary-blue: #4A90E2;
+  --success-green: #2ECC71;
+  --warning-yellow: #F1C40F;
+  --error-red: #E74C3C;
+  --text-dark: #2C3E50;
+  --accent-purple: #9B59B6;
+  --neutral-gray: #BDC3C7;
+}
+
+/* Base styles */
+body {
+  @apply antialiased text-text-dark;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-comic-neue font-bold;
+}
+
+/* Interactive elements */
+.btn {
+  @apply inline-flex items-center justify-center px-4 py-2 border border-transparent 
+         text-base font-medium rounded-md transition-colors duration-200;
+}
+
+.btn-primary {
+  @apply text-white bg-primary-blue hover:bg-blue-600;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6;
+}
+
+/* Focus styles */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2;
+}
+
+/* Animation utilities */
+.animate-float {
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

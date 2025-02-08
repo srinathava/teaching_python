@@ -1,0 +1,15 @@
+[project]
+name = "code-validator"
+version = "0.1.0"
+description = "Python code validation backend for teaching platform"
+requires-python = ">=3.10"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
