@@ -36,10 +36,10 @@ alembic upgrade head
 # Create temporary user for development
 echo "Creating temporary user..."
 python -c "
-from src.database import get_db
+from src.database import get_db_context
 from src.models import User
 
-with get_db() as db:
+with get_db_context() as db:
     if not db.query(User).filter(User.id == 1).first():
         db.add(User(id=1))
         db.commit()

@@ -51,6 +51,8 @@
 		"vitest": "^2.1.8"
 	},
 	"dependencies": {
+		"@auth/core": "^0.37.4",
+		"@auth/sveltekit": "^1.7.4",
 		"@libsql/client": "^0.14.0",
 		"drizzle-orm": "^0.38.4",
 		"monaco-editor": "^0.52.2"

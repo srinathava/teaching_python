@@ -19,6 +19,7 @@
     completedAt: number | null;
     lastAttemptedCode: string | null;
   };
+  export let session: any;
   
   let codeInput = progress.lastAttemptedCode || exercise.initialCode;
   let showHint = false;
@@ -103,6 +104,7 @@
         exerciseDescription={`${exercise.description} ${exercise.taskDescription}`}
         expectedOutcome={exercise.validationParams.expectedOutcome}
         nextExercise={null}
+        {session}
       />
       <button 
         class="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg transition-colors"

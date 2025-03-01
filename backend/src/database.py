@@ -27,6 +27,15 @@ def get_db():
     finally:
         db.close()
 
+@contextmanager
+def get_db_context():
+    """Context manager for database sessions."""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 def init_db():
     """Initialize the database, creating all tables."""
     Base.metadata.create_all(bind=engine)

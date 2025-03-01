@@ -1,8 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { popIn, slideIn } from '$lib/transitions';
+  import LoginButton from '$lib/components/LoginButton.svelte';
   import '../app.css';
+  import type { LayoutData } from './$types';
   
+  export let data: LayoutData;
   let mounted = false;
   
   onMount(() => {
@@ -29,8 +32,8 @@
           {/if}
         </div>
       </div>
-      <!-- Navigation Links -->
-      <div class="flex space-x-8">
+      <!-- Navigation Links and Login -->
+      <div class="flex items-center space-x-8">
         {#if mounted}
           <a
             href="/achievements"
@@ -39,6 +42,9 @@
           >
             Achievements
           </a>
+          <div in:slideIn={{duration: 400, delay: 600}}>
+            <LoginButton />
+          </div>
         {/if}
       </div>
     </div>

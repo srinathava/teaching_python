@@ -10,4 +10,5 @@
   exerciseNumber={data.exerciseNumber}
   totalExercises={data.totalExercises}
   progress={data.progress}
+  session={data.session}
 />

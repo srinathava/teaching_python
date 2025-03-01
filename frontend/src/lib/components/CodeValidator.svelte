@@ -9,6 +9,7 @@
 	export let exerciseDescription: string | undefined = undefined;
 	export let expectedOutcome: string | undefined = undefined;
 	export let nextExercise: string | null = null;
+	export let session: any;
 
 	type ValidationResult = {
 		success: boolean;
@@ -53,7 +54,8 @@
 				body: JSON.stringify({
 					exercise_slug: exerciseId,
 					code,
-					is_correct: result.success
+					is_correct: result.success,
+					user_id: session?.user?.id
 				})
 			});
 

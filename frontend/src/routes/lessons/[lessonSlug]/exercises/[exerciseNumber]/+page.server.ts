@@ -1,12 +1,15 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { loadExercisesData } from '$lib/server/content/loader';
 import type { Progress } from '$lib/types/progress';
 
-// Temporary user ID until we implement auth
-const TEMP_USER_ID = 1;
+export const load = (async ({ params, fetch, locals }) => {
+    // Require authentication
+    const session = await locals.getSession();
+    if (!session?.user) {
+        throw redirect(303, '/');
+    }
 
-export const load = (async ({ params, fetch }) => {
     const data = loadExercisesData();
 
     // Find the lesson
@@ -26,10 +29,10 @@ export const load = (async ({ params, fetch }) => {
     const sortedExercises = [...lesson.exercises].sort((a, b) => a.sequenceKey - b.sequenceKey);
     const exerciseNumber = sortedExercises.findIndex(e => e.sequenceKey === sequenceKey) + 1;
 
-    // Fetch user's progress from Python backend
+    // Fetch user's progress from Python backend using authenticated user's ID
     let userProgress: Progress | undefined;
     try {
-        const progressResponse = await fetch(`/api/progress/${TEMP_USER_ID}`);
+        const progressResponse = await fetch(`/api/progress/${session.user.id}`);
         if (progressResponse.ok) {
             const { progress: progressRecords } = await progressResponse.json() as { progress: Progress[] };
             userProgress = progressRecords.find(p => p.exercise_slug === exercise.slug);
@@ -56,6 +59,7 @@ export const load = (async ({ params, fetch }) => {
         exercise,
         totalExercises: lesson.exercises.length,
         exerciseNumber,
-        progress: transformedProgress
+        progress: transformedProgress,
+        session
     };
 }) satisfies PageServerLoad;

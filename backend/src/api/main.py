@@ -63,7 +63,7 @@ class ProgressRequest(BaseModel):
     exercise_slug: str
     code: str
     is_correct: bool
-    user_id: int = 1  # Temporary until auth is implemented
+    user_id: str  # UUID from OAuth
 
 class ProgressResponse(BaseModel):
     """Response model for progress updates."""
@@ -216,7 +216,7 @@ async def update_progress(request: ProgressRequest, db: Session = Depends(get_db
         )
 
 @app.get("/api/progress/{user_id}", response_model=UserProgressResponse)
-async def get_user_progress(user_id: int, db: Session = Depends(get_db)) -> UserProgressResponse:
+async def get_user_progress(user_id: str, db: Session = Depends(get_db)) -> UserProgressResponse:
     """
     Get all progress records for a user.
     """

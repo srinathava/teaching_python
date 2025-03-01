@@ -1,3 +1,4 @@
+.pids/*
 *.sw?
 *.py?
 .env
