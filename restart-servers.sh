@@ -5,21 +5,45 @@ echo "Killing existing server processes..."
 # Create a directory for PIDs if it doesn't exist
 mkdir -p .pids
 
-# Function to kill process by PID file if it exists
-kill_by_pid() {
+# More aggressive process killing
+kill_processes() {
+    # Kill by port for frontend (Vite uses 5173 by default)
+    echo "Killing any processes using port 5173..."
+    lsof -ti:5173 | xargs kill -9 2>/dev/null || true
+    
+    # Kill any processes with 'vite' in the name
+    echo "Killing any Vite processes..."
+    pkill -f "vite" 2>/dev/null || true
+    
+    # Kill any processes with 'node' running the frontend dev server
+    echo "Killing any Node processes related to frontend..."
+    pkill -f "node.*frontend" 2>/dev/null || true
+    
+    # Kill backend uvicorn processes
+    echo "Killing any Uvicorn processes..."
+    pkill -f "uvicorn" 2>/dev/null || true
+    
+    # Kill by PID file if it exists
     local pid_file=$1
     if [ -f "$pid_file" ]; then
         pid=$(cat "$pid_file")
         if ps -p $pid > /dev/null; then
-            kill $pid
+            echo "Killing process with PID $pid..."
+            kill -9 $pid 2>/dev/null || true
             rm "$pid_file"
         fi
     fi
+    
+    # Small delay to ensure processes are terminated
+    sleep 1
 }
 
-# Kill existing processes using their PID files
-kill_by_pid ".pids/frontend.pid"
-kill_by_pid ".pids/backend.pid"
+# Kill existing processes
+kill_processes ".pids/frontend.pid"
+kill_processes ".pids/backend.pid"
+
+# Clean up any remaining PID files
+rm -f .pids/*.pid 2>/dev/null || true
 
 echo "Setting up backend..."
 cd backend

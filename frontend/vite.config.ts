@@ -13,6 +13,13 @@ export default defineConfig({
 		}
 	},
 
+	// Configure Vite to watch additional files
+	optimizeDeps: {
+		// Force Vite to consider exercises.json as a dependency
+		// This ensures changes to this file trigger a reload
+		include: ['src/lib/server/content/exercises.json']
+	},
+
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
