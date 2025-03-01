@@ -15,7 +15,6 @@
           "taskDescription": "Create variables for blocks, dolls, and cars with the counts shown in the boxes.",
           "initialCode": "# Create variables for toy counts\n# Example: blocks = 12",
           "solution": "blocks = 12\ndolls = 5\ncars = 8",
-          "hintText": "Remember to use = to assign values to variables!",
           "contentPath": "variables/exercises/1/content.svelte",
           "validationParams": {
             "concept": "variables",
@@ -30,7 +29,6 @@
           "taskDescription": "Oh no! Alex has a banana but wants an apple, while Sam has an apple but wants a banana. Help them swap their fruits by using a temporary variable called 'temp'!",
           "initialCode": "# Alex and Sam need to swap their fruits!\nalex_fruit = \"banana\"\nsam_fruit = \"apple\"\n\n# Use temp to help swap the fruits\n",
           "solution": "alex_fruit = \"banana\"\nsam_fruit = \"apple\"\ntemp = alex_fruit\nalex_fruit = sam_fruit\nsam_fruit = temp",
-          "hintText": "Think about how you can temporarily store one fruit while you make the swap!",
           "contentPath": "variables/exercises/2/content.svelte",
           "validationParams": {
             "concept": "variables",
@@ -54,7 +52,6 @@
           "taskDescription": "The circus juggler needs to count all the juggling balls! Add the numbers 5 and 3 together and store the result in a variable called 'sum'.",
           "initialCode": "# Add the juggling balls together\n# Store the result in 'sum'\n\n",
           "solution": "sum = 5 + 3",
-          "hintText": "In Python, we use the + symbol to add numbers together! When we write sum = 5 + 3, we're telling Python to add 5 and 3, then store the result in a variable called 'sum'.",
           "contentPath": "operations/exercises/1/content.svelte",
           "validationParams": {
             "concept": "operations",
@@ -69,7 +66,6 @@
           "taskDescription": "The circus announcer needs to create an announcement! Combine the strings \"Hello\" and \"World\" with a space between them, and store the result in a variable called 'message'.",
           "initialCode": "# Combine the strings with a space between them\n# Store the result in 'message'\n\n",
           "solution": "message = \"Hello\" + \" \" + \"World\"",
-          "hintText": "In Python, we can combine text (strings) using the + symbol! Each piece of text needs to be in quotes, like \"Hello\". If you want a space between words, you need to add it as its own string: \" \". Otherwise, the words will be stuck together like \"HelloWorld\"!",
           "contentPath": "operations/exercises/2/content.svelte",
           "validationParams": {
             "concept": "operations",
@@ -84,7 +80,6 @@
           "taskDescription": "The circus animals are hungry! Each elephant needs 5 fruits, each monkey needs 3 fruits, and we have 2 elephants and 4 monkeys. Calculate the total fruits needed and store the result in 'total_fruits'.",
           "initialCode": "# Calculate the total fruits needed for all animals\n\n# Number of animals\nelephants = 2\nmonkeys = 4\n\n# Fruits per animal\nelephant_fruits = 5\nmonkey_fruits = 3\n\n# Calculate total fruits needed\n",
           "solution": "elephants = 2\nmonkeys = 4\nelephant_fruits = 5\nmonkey_fruits = 3\ntotal_fruits = (elephants * elephant_fruits) + (monkeys * monkey_fruits)",
-          "hintText": "In Python, we can use variables in our calculations! First, calculate how many fruits each type of animal needs by multiplying: elephants * elephant_fruits and monkeys * monkey_fruits. Then, add these results together to get the total: total_fruits = (elephants * elephant_fruits) + (monkeys * monkey_fruits). The parentheses () help us organize our calculation and make it clear!",
           "contentPath": "operations/exercises/3/content.svelte",
           "validationParams": {
             "concept": "operations",
@@ -108,7 +103,6 @@
           "taskDescription": "The roller coaster has a minimum height requirement of 140 cm. Create a variable called 'is_tall_enough' that checks if a visitor with height 145 cm meets this requirement.",
           "initialCode": "# Visitor's height in centimeters\nvisitor_height = 145\n\n# Minimum height required for the ride\nmin_height = 140\n\n# Check if the visitor is tall enough\n# Store the result in 'is_tall_enough'\n",
           "solution": "visitor_height = 145\nmin_height = 140\nis_tall_enough = visitor_height >= min_height",
-          "hintText": "Use the >= (greater than or equal to) operator to compare the visitor's height with the minimum height requirement. This will give you a boolean value (True or False) that you can store in the 'is_tall_enough' variable.",
           "contentPath": "booleans/exercises/1/content.svelte",
           "validationParams": {
             "concept": "booleans",
@@ -123,7 +117,6 @@
           "taskDescription": "The circus has different ticket types. Create a variable called 'has_correct_ticket' that checks if a visitor's ticket type matches the required ticket type for a show.",
           "initialCode": "# Visitor's ticket type\nvisitor_ticket = \"VIP\"\n\n# Required ticket type for the show\nrequired_ticket = \"VIP\"\n\n# Check if the visitor has the correct ticket\n# Store the result in 'has_correct_ticket'\n",
           "solution": "visitor_ticket = \"VIP\"\nrequired_ticket = \"VIP\"\nhas_correct_ticket = visitor_ticket == required_ticket",
-          "hintText": "Use the == (equal to) operator to compare the visitor's ticket type with the required ticket type. This will give you a boolean value (True or False) that you can store in the 'has_correct_ticket' variable. Remember that strings must match exactly, including capitalization.",
           "contentPath": "booleans/exercises/2/content.svelte",
           "validationParams": {
             "concept": "booleans",
@@ -138,7 +131,6 @@
           "taskDescription": "The circus has a special ride with two requirements: visitors must be at least 12 years old AND at least 120 cm tall. Create a variable called 'can_ride' that checks if a visitor meets both requirements.",
           "initialCode": "# Visitor's age and height\nvisitor_age = 14\nvisitor_height = 130\n\n# Ride requirements\nmin_age = 12\nmin_height = 120\n\n# Check if the visitor can ride\n# Store the result in 'can_ride'\n",
           "solution": "visitor_age = 14\nvisitor_height = 130\nmin_age = 12\nmin_height = 120\ncan_ride = (visitor_age >= min_age) and (visitor_height >= min_height)",
-          "hintText": "Use the 'and' logical operator to combine two conditions: (visitor_age >= min_age) and (visitor_height >= min_height). This will give you True only if both conditions are True. The parentheses help make the code clearer but aren't strictly required.",
           "contentPath": "booleans/exercises/3/content.svelte",
           "validationParams": {
             "concept": "booleans",

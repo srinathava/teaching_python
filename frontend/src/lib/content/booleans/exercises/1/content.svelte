@@ -1,7 +1,13 @@
 <script lang="ts">
-  // This component can import other components, use assets, etc.
+  import { fade } from 'svelte/transition';
   import type { Exercise } from '$lib/server/content/types';
   export let exercise: Exercise;
+  
+  let showHint = false;
+  
+  function toggleHint() {
+    showHint = !showHint;
+  }
 </script>
 
 <div class="mb-6">
@@ -79,6 +85,21 @@
       </div>
     </div>
   </div>
-
-  <!-- Circus tips moved to hint text -->
+  
+  <!-- Hint section at the bottom of content -->
+  <div class="flex justify-end mb-2">
+    <button
+      class="text-yellow-600 hover:text-yellow-800 flex items-center text-sm"
+      on:click={toggleHint}
+    >
+      <span class="mr-1">💡</span>
+      <span>{showHint ? 'Hide hint' : 'Need a hint?'}</span>
+    </button>
+  </div>
+  
+  {#if showHint}
+    <div class="mb-4 p-3 bg-yellow-50 text-yellow-800 rounded-lg border border-yellow-200" transition:fade>
+      <p>💡 <strong>Hint:</strong> Use the >= (greater than or equal to) operator to compare the visitor's height with the minimum height requirement. This will give you a boolean value (True or False) that you can store in the 'is_tall_enough' variable.</p>
+    </div>
+  {/if}
 </div>

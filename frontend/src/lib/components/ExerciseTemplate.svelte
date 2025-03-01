@@ -22,7 +22,6 @@
   export let session: any;
   
   let codeInput = progress.lastAttemptedCode || exercise.initialCode;
-  let showHint = false;
   let ExerciseContent: any = null;
   
   onMount(async () => {
@@ -41,10 +40,6 @@
     }
   });
   
-  function toggleHint() {
-    showHint = !showHint;
-  }
-  
   function goBack() {
     goto('/');
   }
@@ -57,7 +52,7 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <!-- Exercise Header -->
   <div class="flex items-center justify-between mb-8">
-    <button 
+    <button
       class="flex items-center text-blue-600 hover:text-blue-800"
       on:click={goBack}
     >
@@ -95,7 +90,7 @@
     </div>
 
     <!-- Controls -->
-    <div class="flex justify-between items-center">
+    <div class="flex justify-center items-center">
       <CodeValidator
         lessonId={exercise.validationParams.concept}
         exerciseId={exercise.slug}
@@ -106,19 +101,6 @@
         nextExercise={null}
         {session}
       />
-      <button 
-        class="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg transition-colors"
-        on:click={toggleHint}
-      >
-        {showHint ? 'Hide Hint' : 'Show Hint'}
-      </button>
     </div>
-
-    <!-- Hint Area -->
-    {#if showHint}
-      <div class="mt-4 p-4 bg-yellow-50 text-yellow-800 rounded-lg" transition:fade>
-        💡 Hint: {exercise.hintText}
-      </div>
-    {/if}
   </div>
 </div>

@@ -11,7 +11,7 @@ export interface Exercise {
     taskDescription: string;
     initialCode: string;
     solution: string;
-    hintText: string;
+    hintText?: string; // Now optional since hints are in content.svelte files
     contentPath: string;
     validationParams: ValidationParams;
 }
