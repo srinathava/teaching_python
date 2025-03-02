@@ -39,7 +39,7 @@
     },
     {
       "slug": "operations",
-      "title": "The Amazing Number Circus",
+      "title": "The Calculation Carnival",
       "description": "Learn how to perform calculations and work with different types of data",
       "order": 2,
       "icon": "🎡",
@@ -73,8 +73,22 @@
           }
         },
         {
-          "slug": "operations-3",
+          "slug": "operations-banner",
           "sequenceKey": 3.0,
+          "title": "The Circus Banner Maker",
+          "description": "Help create personalized welcome banners for circus visitors using string formatting!",
+          "taskDescription": "The circus needs to create personalized welcome banners for visitors. Use Python's f-string formatting to create a welcome message that includes the visitor's name and favorite act.",
+          "initialCode": "# Visitor information\nvisitor_name = \"Alex\"\nfavorite_act = \"juggling\"\n\n# Create a welcome banner using f-string formatting\n# Store the result in 'welcome_banner'\n# Example: welcome_banner = f\"Welcome, {visitor_name}! Enjoy the {favorite_act} show!\"\n",
+          "solution": "visitor_name = \"Alex\"\nfavorite_act = \"juggling\"\nwelcome_banner = f\"Welcome, {visitor_name}! Enjoy the {favorite_act} show!\"",
+          "contentPath": "operations/exercises/banner/content.svelte",
+          "validationParams": {
+            "concept": "operations",
+            "expectedOutcome": "visitor_name = \"Alex\"\nfavorite_act = \"juggling\"\nwelcome_banner = f\"Welcome, {visitor_name}! Enjoy the {favorite_act} show!\""
+          }
+        },
+        {
+          "slug": "operations-3",
+          "sequenceKey": 4.0,
           "title": "The Circus Animal Feast",
           "description": "Calculate the total fruits needed for all the circus animals!",
           "taskDescription": "The circus animals are hungry! Each elephant needs 5 fruits, each monkey needs 3 fruits, and we have 2 elephants and 4 monkeys. Calculate the total fruits needed and store the result in 'total_fruits'.",
